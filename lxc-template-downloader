@@ -41,31 +41,31 @@ function create_search_tree() {
     do
         c=`expr ${i} % 26`
         case ${c} in
-            1)  echo -ne "   Crawling: ${GREEN}░                 ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            2)  echo -ne "   Crawling: ${GREEN}▒░                ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            3)  echo -ne "   Crawling: ${GREEN}▓▒░               ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            4)  echo -ne "   Crawling: ${GREEN}▓▓▒░              ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            5)  echo -ne "   Crawling: ${GREEN}▓▓▓▒░             ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            6)  echo -ne "   Crawling: ${GREEN}▒▓▓▓▒░            ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            7)  echo -ne "   Crawling: ${GREEN}░▒▓▓▓▒░           ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            8)  echo -ne "   Crawling: ${GREEN} ░▒▓▓▓▒░          ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            9)  echo -ne "   Crawling: ${GREEN}  ░▒▓▓▓▒░         ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            10) echo -ne "   Crawling: ${GREEN}   ░▒▓▓▓▒░        ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            11) echo -ne "   Crawling: ${GREEN}    ░▒▓▓▓▒░       ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            12) echo -ne "   Crawling: ${GREEN}     ░▒▓▓▓▒░      ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            13) echo -ne "   Crawling: ${GREEN}      ░▒▓▓▓▒░     ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            14) echo -ne "   Crawling: ${GREEN}       ░▒▓▓▓▒░    ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            15) echo -ne "   Crawling: ${GREEN}        ░▒▓▓▓▒░   ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            16) echo -ne "   Crawling: ${GREEN}         ░▒▓▓▓▒░  ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            17) echo -ne "   Crawling: ${GREEN}          ░▒▓▓▓▒░ ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            18) echo -ne "   Crawling: ${GREEN}           ░▒▓▓▓▒░${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            19) echo -ne "   Crawling: ${GREEN}            ░▒▓▓▓▒${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            20) echo -ne "   Crawling: ${GREEN}             ░▒▓▓▓${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            21) echo -ne "   Crawling: ${GREEN}              ░▒▓▓${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            22) echo -ne "   Crawling: ${GREEN}               ░▒▓${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            23) echo -ne "   Crawling: ${GREEN}                ░▒${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            24) echo -ne "   Crawling: ${GREEN}                 ░${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
-            25) echo -ne "   Crawling: ${GREEN}                  ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            1)  echo -ne "   Crawling: ${GREEN}░                 ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            2)  echo -ne "   Crawling: ${GREEN}▒░                ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            3)  echo -ne "   Crawling: ${GREEN}▓▒░               ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            4)  echo -ne "   Crawling: ${GREEN}▓▓▒░              ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            5)  echo -ne "   Crawling: ${GREEN}▓▓▓▒░             ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            6)  echo -ne "   Crawling: ${GREEN}▒▓▓▓▒░            ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            7)  echo -ne "   Crawling: ${GREEN}░▒▓▓▓▒░           ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            8)  echo -ne "   Crawling: ${GREEN} ░▒▓▓▓▒░          ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            9)  echo -ne "   Crawling: ${GREEN}  ░▒▓▓▓▒░         ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            10) echo -ne "   Crawling: ${GREEN}   ░▒▓▓▓▒░        ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            11) echo -ne "   Crawling: ${GREEN}    ░▒▓▓▓▒░       ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            12) echo -ne "   Crawling: ${GREEN}     ░▒▓▓▓▒░      ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            13) echo -ne "   Crawling: ${GREEN}      ░▒▓▓▓▒░     ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            14) echo -ne "   Crawling: ${GREEN}       ░▒▓▓▓▒░    ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            15) echo -ne "   Crawling: ${GREEN}        ░▒▓▓▓▒░   ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            16) echo -ne "   Crawling: ${GREEN}         ░▒▓▓▓▒░  ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            17) echo -ne "   Crawling: ${GREEN}          ░▒▓▓▓▒░ ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            18) echo -ne "   Crawling: ${GREEN}           ░▒▓▓▓▒░${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            19) echo -ne "   Crawling: ${GREEN}            ░▒▓▓▓▒${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            20) echo -ne "   Crawling: ${GREEN}             ░▒▓▓▓${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            21) echo -ne "   Crawling: ${GREEN}              ░▒▓▓${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            22) echo -ne "   Crawling: ${GREEN}               ░▒▓${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            23) echo -ne "   Crawling: ${GREEN}                ░▒${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            24) echo -ne "   Crawling: ${GREEN}                 ░${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            25) echo -ne "   Crawling: ${GREEN}                  ${RESET} Entries written: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
         esac 
         i=`expr ${i} + 1`
         sleep 0.1
