@@ -6,19 +6,19 @@ It provides a search method and will give you hints to find the correct image.
 
 You can download for images:
 
-[![asciicast](https://asciinema.org/a/aLoIUHElAC3uAmxfEvOLeepkB.svg)](https://asciinema.org/a/aLoIUHElAC3uAmxfEvOLeepkB)
+![get images](examples/get.svg)
 
 This function will also give you hints:
 
-[![asciicast](https://asciinema.org/a/4r4t6Bt6hkejKQvxMdJ73Auob.svg)](https://asciinema.org/a/4r4t6Bt6hkejKQvxMdJ73Auob)
+![get images display hints](examples/get-hints.svg)
 
 Or you can search for keywords:
 
-[![asciicast](https://asciinema.org/a/XBU8LGApV1NyPjjuUcQtRrSe6.svg)](https://asciinema.org/a/XBU8LGApV1NyPjjuUcQtRrSe6)
+![search for images](examples/search.svg)
 
 Beware, therefore a the howl file tree musst be crawled, this will take some time:
 
-[![asciicast](https://asciinema.org/a/gBbhe14oFICeKUb315TQJ4ZGz.svg)](https://asciinema.org/a/gBbhe14oFICeKUb315TQJ4ZGz)
+![search for images first run](examples/search-first-run.svg)
 
 
 ```
