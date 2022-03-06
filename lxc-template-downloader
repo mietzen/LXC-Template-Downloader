@@ -146,19 +146,19 @@ function get_image() {
     then
         case "$#" in
             0)
-                echo -e "${ERROR} Please Provide OS Name, possible Options:"
+                echo -e "${ERROR} Please Provide OS Name, possible options:"
                 x=$(for i in $(get_items); do echo -n "${i}, " ; done| sed 's/, $//'); echo $x
                 exit 1
             ;;
             1)
                 check_get_input "$@"
-                echo -e "${ERROR} Please Provide OS Version, possible Options:"
+                echo -e "${ERROR} Please Provide OS Version, possible options:"
                 x=$(for i in $(get_items "$1"); do echo -n "${i}, " ; done| sed 's/, $//'); echo $x
                 exit 1
             ;;
             2)
                 check_get_input "$@"
-                echo -e "${ERROR} Please Provide OS Arch, possible Options:"
+                echo -e "${ERROR} Please Provide OS Arch, possible options:"
                 x=$(for i in $(get_items "$1/$2"); do echo -n "${i}, " ; done| sed 's/, $//'); echo $x
                 exit 1
             ;;
@@ -212,7 +212,7 @@ Usage: lxc-template-downloader COMMAND [OPTIONS]
 
 Overview:
   ┌──────────┬────────────────────────────────────────┬─────────────────┐
-  │ Command: │  Arguments:                            │ Options:        │
+  │ Command: │  Arguments:                            │ options:        │
   ├──────────┼────────────────────────────────────────┼─────────────────┤
   │  help    │                                        │                 │
   │  get     │  name version arch *type *timestamp    │  -d | --dir     │
