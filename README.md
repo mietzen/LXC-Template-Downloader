@@ -16,7 +16,7 @@ Or you can search for keywords:
 
 ![search for images](examples/search.svg)
 
-Beware, therefore a the howl file tree musst be crawled, this will take some time:
+Beware, therefore a the whole file tree musst be crawled, this will take some time:
 
 ![search for images first run](examples/search-first-run.svg)
 
