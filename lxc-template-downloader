@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # lxc-template-downloader
 # CLI to Download LXC Templates from https://uk.lxd.images.canonical.com
@@ -190,9 +190,7 @@ function get_image() {
                 exit 1
             ;;
         esac
-        echo "${spec}"
         filesname=$(echo "${spec}" | sed -r 's/\//-/g' | cut -d '_' -f1)
-        echo "${filesname}"
         rm -rf /tmp/lxc_images/
         mkdir -p /tmp/lxc_images/
         curl -s -o "/tmp/lxc_images/rootfs.tar.xz" $image_url
