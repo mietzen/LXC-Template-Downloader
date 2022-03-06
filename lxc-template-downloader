@@ -1,0 +1,283 @@
+#!/bin/bash
+
+BASE_URL='https://uk.lxd.images.canonical.com/images/'
+DEPTH=0
+SAVE_DIR=$PWD
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+RESET='\033[0m'
+BOLD='\033[1m'
+
+ERROR="${RED}${BOLD}ERROR:${RESET}"
+
+function get_items() {
+    if [[ $(echo "$1" | awk -F/ '{print NF-1}') -lt 3 ]]
+    then
+        curl -s $BASE_URL/$1/ | grep -o '<a href=".*/">' | awk -F'"' '{print $2}' | cut -d '/' -f1 | sed -r '/^\s*$/d'
+    else
+        local items=( $(curl -s $BASE_URL/$1/ | grep -o '<a href="\..*/">' | awk -F'"' '{print $2}' | cut -d '/' -f2 | sed -r '/^\s*$/d') )
+        for i in "${items[@]}"
+        do
+            echo "$i"
+        done 
+    fi 
+}
+
+function create_search_tree() {
+    echo 'Updating search tree, this may take some time...'
+    echo ''
+    (bash $0 list -d 5 > /tmp/lxc_image_tree.yaml) &
+    pid=$! ; i=0
+    while ps -a | awk '{print $1}' | grep -q "${pid}"
+    do
+        c=`expr ${i} % 26`
+        case ${c} in
+            1)  echo -ne "   Crawling: ${GREEN}░                 ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            2)  echo -ne "   Crawling: ${GREEN}▒░                ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            3)  echo -ne "   Crawling: ${GREEN}▓▒░               ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            4)  echo -ne "   Crawling: ${GREEN}▓▓▒░              ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            5)  echo -ne "   Crawling: ${GREEN}▓▓▓▒░             ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            6)  echo -ne "   Crawling: ${GREEN}▒▓▓▓▒░            ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            7)  echo -ne "   Crawling: ${GREEN}░▒▓▓▓▒░           ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            8)  echo -ne "   Crawling: ${GREEN} ░▒▓▓▓▒░          ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            9)  echo -ne "   Crawling: ${GREEN}  ░▒▓▓▓▒░         ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            10) echo -ne "   Crawling: ${GREEN}   ░▒▓▓▓▒░        ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            11) echo -ne "   Crawling: ${GREEN}    ░▒▓▓▓▒░       ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            12) echo -ne "   Crawling: ${GREEN}     ░▒▓▓▓▒░      ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            13) echo -ne "   Crawling: ${GREEN}      ░▒▓▓▓▒░     ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            14) echo -ne "   Crawling: ${GREEN}       ░▒▓▓▓▒░    ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            15) echo -ne "   Crawling: ${GREEN}        ░▒▓▓▓▒░   ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            16) echo -ne "   Crawling: ${GREEN}         ░▒▓▓▓▒░  ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            17) echo -ne "   Crawling: ${GREEN}          ░▒▓▓▓▒░ ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            18) echo -ne "   Crawling: ${GREEN}           ░▒▓▓▓▒░${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            19) echo -ne "   Crawling: ${GREEN}            ░▒▓▓▓▒${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            20) echo -ne "   Crawling: ${GREEN}             ░▒▓▓▓${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            21) echo -ne "   Crawling: ${GREEN}              ░▒▓▓${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            22) echo -ne "   Crawling: ${GREEN}               ░▒▓${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            23) echo -ne "   Crawling: ${GREEN}                ░▒${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            24) echo -ne "   Crawling: ${GREEN}                 ░${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+            25) echo -ne "   Crawling: ${GREEN}                  ${RESET} Entries writen: $(wc -l /tmp/lxc_image_tree.yaml | awk '{ print $1 }')"\\r ;;
+        esac 
+        i=`expr ${i} + 1`
+        sleep 0.1
+    done
+    echo -ne "${RESET}                                                     "\\r
+}
+
+function search() {
+    if [[ $(find /tmp/lxc_image_tree.yaml -mtime +1 -print >> /dev/null 2>&1 || false ) ]]
+    then
+        rm /tmp/lxc_image_tree.yaml
+    fi
+
+    if [[ ! -f /tmp/lxc_image_tree.yaml ]]
+    then
+        create_search_tree
+    fi
+
+    yq '[leaf_paths as $path | {"key": $path | join("#"), "value": getpath($path)}] | from_entries' /tmp/lxc_image_tree.yaml | grep "$1" | cut -d ':' -f 1 | sed -e 's/^[[:space:]]*//' | tr -d '"' | rev | cut -c3- | rev | sed -r 's/images.//g' | tr '#' ' '  | uniq
+}
+
+function print_tree() {
+    if [[ $DEPTH -eq 0 ]]
+    then
+        echo "images:"
+        DEPTH=1
+    fi
+    local items=( $(get_items $1) )
+    for i in "${items[@]}"
+    do
+        for j in $(seq 0 $DEPTH)
+        do
+            if [[ $j -lt $DEPTH ]]
+            then
+                echo -n "  "
+            fi
+        done
+        if [[ DEPTH -lt $MAX_DEPTH ]]
+        then
+            echo "$i:"
+            ((DEPTH++))
+            if [[ -z "$1" ]]
+            then
+                print_tree "${i}"
+            else
+                print_tree "$1/${i}"
+            fi
+        else
+            echo "- $i"
+        fi
+    done
+    ((DEPTH--))
+}
+
+function check_get_input() {
+    local input=""
+    for var in "$@"
+    do
+        local items=( $(get_items $input) )
+        if [[ ! " ${items[*]} " =~ " ${var} " ]]
+        then
+            echo -e "${ERROR} $var not in:"
+            x=$(for i in "${items[@]}"; do echo -n "${i}, " ; done| sed 's/, $//')
+            echo $x
+            exit 1
+        fi
+        if [[ -z $input ]]
+        then
+            input=$var
+        else
+            input="$input/$var"
+        fi
+    done
+}
+
+function get_image() {
+    if [[ "$#" -lt 3 ]]
+    then
+        case "$#" in
+            0)
+                echo -e "${ERROR} Please Provide OS Name, possible Options:"
+                x=$(for i in $(get_items); do echo -n "${i}, " ; done| sed 's/, $//'); echo $x
+                exit 1
+            ;;
+            1)
+                check_get_input "$@"
+                echo -e "${ERROR} Please Provide OS Version, possible Options:"
+                x=$(for i in $(get_items "$1"); do echo -n "${i}, " ; done| sed 's/, $//'); echo $x
+                exit 1
+            ;;
+            2)
+                check_get_input "$@"
+                echo -e "${ERROR} Please Provide OS Arch, possible Options:"
+                x=$(for i in $(get_items "$1/$2"); do echo -n "${i}, " ; done| sed 's/, $//'); echo $x
+                exit 1
+            ;;
+        esac
+    else
+        check_get_input "$@"
+        spec=$(for i in "$@"; do echo -n "${i}/" ; done| sed 's/, $//')
+        case "$#" in
+            3) 
+                spec="${spec}default"
+                latest=$(get_items $spec | tr -d "'" | sort  -hr | head -n 1)
+                spec="${spec}/${latest}"
+                image_url="${BASE_URL}${spec}/rootfs.tar.xz"
+                sha_sums_url="${BASE_URL}${spec}/SHA256SUMS"
+            ;;
+            4) 
+                latest=$(get_items $spec | tr -d "'" | sort  -hr | head -n 1)
+                spec="${spec}${latest}"
+                image_url="${BASE_URL}${spec}/rootfs.tar.xz"
+                sha_sums_url="${BASE_URL}${spec}/SHA256SUMS"
+            ;;
+            5) 
+                image_url="${BASE_URL}${spec}rootfs.tar.xz"
+                sha_sums_url="${BASE_URL}${spec}SHA256SUMS"
+            ;;
+            *)
+                echo -e "${ERROR} To many parameter, for get: $@" >&2
+                display_help
+                exit 1
+            ;;
+        esac
+        echo "${spec}"
+        filesname=$(echo "${spec}" | sed -r 's/\//-/g' | cut -d '_' -f1)
+        echo "${filesname}"
+        rm -rf /tmp/lxc_images/
+        mkdir -p /tmp/lxc_images/
+        curl -s -o "/tmp/lxc_images/rootfs.tar.xz" $image_url
+        curl -s -o "/tmp/lxc_images/SHA256SUMS" $sha_sums_url
+        if [ $(cd /tmp/lxc_images && sha256sum -c SHA256SUMS --ignore-missing | grep -o OK) ]
+        then
+            mv /tmp/lxc_images/rootfs.tar.xz "${SAVE_DIR}/${filesname}.tar.xz"
+            rm -rf /tmp/lxc_images/
+        else
+            echo -e "${ERROR} SHA256SUM Missmatch! Check files under: /tmp/lxc_images/"
+            exit 1
+        fi
+    fi
+}
+
+function display_help() {
+    echo "How to use"
+}
+
+case "$1" in
+    help)
+        display_help
+        exit 0
+    ;;
+    get)
+        case "${@:$(($#-1)):1}" in
+                -d|--dir)
+                    SAVE_DIR=${@: -1}
+                    get_image ${@:2:$(($#-3))}
+                ;;
+                *)
+                    get_image ${@:2}
+                ;;
+        esac
+    ;;
+    list)
+        if [[ -z "$2" ]]
+        then
+            MAX_DEPTH=2
+            print_tree
+        else
+            case "$2" in
+                -d|--depth)
+                    if [[ ! -z "$3" ]]
+                    then
+                        MAX_DEPTH=$3
+                        if [[ MAX_DEPTH -gt 5 ]]
+                        then
+                            MAX_DEPTH=5
+                            echo -e "${ERROR} Maximum query depth exeeded, seting back to 'TimeStamp'"
+                            echo "Depth:"
+                            echo "   ┌──────┬─────────┬──────┬──────┬───────────┐"
+                            echo "   │   1  │    2    │  3   │  4   │     5     │"
+                            echo "   ├──────┼─────────┼──────┼──────┼───────────┤"
+                            echo "   │ Name │ Version │ Arch │ Type │ TimeStamp │"
+                            echo "   └──────┴─────────┴──────┴──────┴───────────┘"
+                            echo ""
+                        fi
+                    else
+                        echo -e "${ERROR} Please provide depth between 1 and 5"
+                        display_help
+                        exit 1
+                    fi
+                    print_tree
+                ;;                
+                *)
+                    echo -e "${ERROR} Unknown option, for list: $2" >&2
+                    display_help
+                    exit 1
+                ;;
+            esac
+        fi
+        exit 0
+    ;;
+    search)
+        if [[ -z "$2" ]]
+        then
+            echo -e "${ERROR} Please provide search term"
+            display_help
+            exit 1
+        else
+            search $2
+        fi
+    ;;
+    "")
+        display_help
+        exit 1
+    ;;
+    *)
+        echo -e "${ERROR} Unknown option: $1" >&2
+        display_help
+        exit 1
+    ;;
+esac
+
+exit 0
