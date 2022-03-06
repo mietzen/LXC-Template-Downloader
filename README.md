@@ -5,12 +5,19 @@ This command line interface will help you to find and download LXC Templates.
 It provides a search method and will give you hints to find the correct image.
 
 ## Installation
+### Requirements
 Install requirements [yq](https://github.com/mikefarah/yq) and curl
+
+**Ubuntu**: 
 ```
 snap install yq
 sudo apt install curl
 ```
-
+**macOS**:
+```
+brew install yq curl
+```
+### Downloader
 Install lxc-template-downloader
 ```
 sudo curl -s -o /usr/bin/lxc-template-downloader https://raw.githubusercontent.com/n-stone/LXC-Template-Downloader/main/lxc-template-downloader
